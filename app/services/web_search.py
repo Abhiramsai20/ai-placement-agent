@@ -1,0 +1,108 @@
+from ddgs import DDGS
+
+
+class WebSearchTool:
+
+    def search(
+        self,
+        query,
+        max_results=5
+    ):
+
+        results = []
+
+        try:
+
+            with DDGS() as ddgs:
+
+                search_results = ddgs.text(
+                    query,
+                    max_results=max_results
+                )
+
+                for r in search_results:
+
+                    results.append(
+                        {
+                            "title":
+                                r.get(
+                                    "title",
+                                    ""
+                                ),
+
+                            "body":
+                                r.get(
+                                    "body",
+                                    ""
+                                ),
+
+                            "href":
+                                r.get(
+                                    "href",
+                                    ""
+                                )
+                        }
+                    )
+
+        except Exception as e:
+
+            print(
+                f"Search Error: {e}"
+            )
+
+        return results
+
+    def image_search(
+        self,
+        query,
+        max_results=5
+    ):
+
+        images = []
+
+        try:
+
+            with DDGS() as ddgs:
+
+                image_results = ddgs.images(
+                    query,
+                    max_results=max_results
+                )
+
+                for img in image_results:
+
+                    images.append(
+                        {
+                            "title":
+                                img.get(
+                                    "title",
+                                    ""
+                                ),
+
+                            "image":
+                                img.get(
+                                    "image",
+                                    ""
+                                ),
+
+                            "thumbnail":
+                                img.get(
+                                    "thumbnail",
+                                    ""
+                                ),
+
+                            "url":
+                                img.get(
+                                    "url",
+                                    ""
+                                )
+                        }
+                    )
+
+        except Exception as e:
+
+            print(
+                f"Image Search Error: {e}"
+            )
+
+        return images
