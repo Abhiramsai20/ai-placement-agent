@@ -1,5 +1,4 @@
 import os
-import subprocess
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
@@ -144,21 +143,6 @@ def generate_ppt(request: PPTRequest):
 
         ppt_path = f"app/output/presentations/{company}_Placement_Report.pptx"
         ppt_generated = os.path.exists(ppt_path)
-
-        # Optional Node.js generator fallback/sync if node is available
-        try:
-            subprocess.run(
-                [
-                    "node",
-                    "generate.js",
-                    company
-                ],
-                cwd="ppt-generator",
-                check=True
-            )
-            ppt_generated = True
-        except Exception:
-            pass
 
         return {
 

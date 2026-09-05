@@ -64,24 +64,25 @@ class ImageAgent:
                 )
 
                 image_path = None
-                try:
-                    results = (
-                        self.search_tool
-                        .image_search(
-                            query,
-                            max_results=1
+                if index < 3:
+                    try:
+                        results = (
+                            self.search_tool
+                            .image_search(
+                                query,
+                                max_results=1
+                            )
                         )
-                    )
 
-                    if results and isinstance(results, list) and len(results) > 0:
-                        image_url = results[0].get("image", "")
-                        if image_url:
-                            target_path = f"app/output/images/slide_{index+1}.jpg"
-                            downloaded = self.downloader.download(image_url, target_path)
-                            if downloaded and os.path.exists(downloaded):
-                                image_path = downloaded
-                except Exception as e:
-                    print(f"Image search skipped for {query}: {e}")
+                        if results and isinstance(results, list) and len(results) > 0:
+                            image_url = results[0].get("image", "")
+                            if image_url:
+                                target_path = f"app/output/images/slide_{index+1}.jpg"
+                                downloaded = self.downloader.download(image_url, target_path)
+                                if downloaded and os.path.exists(downloaded):
+                                    image_path = downloaded
+                    except Exception as e:
+                        print(f"Image search skipped for {query}: {e}")
 
                 image_data.append(
                     {

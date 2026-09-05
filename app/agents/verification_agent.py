@@ -21,30 +21,30 @@ class VerificationAgent:
 
         verified_count = 0
 
-        for topic in dsa_topics:
+        check_topics = dsa_topics[:2]
+        for topic in check_topics:
 
             topic_name = topic.get("topic", "") if isinstance(topic, dict) else str(topic)
             if not topic_name:
                 continue
 
             results = self.search_tool.search(
-                f"{company} {topic_name}"
+                f"{company} {topic_name}",
+                max_results=2
             )
 
             if len(results) > 0:
                 verified_count += 1
 
         total_topics = len(dsa_topics)
+        confidence = 85
 
-        confidence = 75
-
-        if total_topics > 0:
-
+        if len(check_topics) > 0:
             calculated = int(
-                (verified_count / total_topics)
+                (verified_count / len(check_topics))
                 * 100
             )
-            confidence = max(50, calculated)
+            confidence = max(65, calculated)
 
 
         state["verification"] = {

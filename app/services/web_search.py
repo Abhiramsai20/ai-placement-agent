@@ -13,7 +13,7 @@ class WebSearchTool:
 
         try:
 
-            with DDGS() as ddgs:
+            with DDGS(timeout=5) as ddgs:
 
                 search_results = ddgs.text(
                     query,
@@ -62,7 +62,7 @@ class WebSearchTool:
 
         try:
 
-            with DDGS() as ddgs:
+            with DDGS(timeout=5) as ddgs:
 
                 image_results = ddgs.images(
                     query,

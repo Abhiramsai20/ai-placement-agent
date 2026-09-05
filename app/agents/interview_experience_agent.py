@@ -16,15 +16,7 @@ class InterviewExperienceAgent:
         company = state["company"]
 
         queries = [
-
-            f"{company} interview experience",
-
-            f"{company} OA experience",
-
-            f"{company} placement interview questions",
-
-            f"{company} campus placement experience"
-
+            f"{company} interview experience OA questions campus placement"
         ]
 
         experiences = []

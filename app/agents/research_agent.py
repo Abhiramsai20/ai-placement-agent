@@ -22,12 +22,8 @@ class ResearchAgent:
         print(f"\nResearching {company}...")
 
         queries = [
-            f"{company} OA pattern",
-            f"{company} DSA questions",
-            f"{company} interview experience",
-            f"{company} hiring process",
-            f"{company} salary package",
-            f"{company} preparation tips"
+            f"{company} online assessment pattern coding DSA questions",
+            f"{company} technical interview rounds syllabus preparation tips"
         ]
 
         all_results = []
