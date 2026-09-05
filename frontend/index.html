@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Placement Preparation Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <header class="navbar">
+            <div class="logo-area">
+                <div class="logo-icon">&#9889;</div>
+                <div class="logo-text">
+                    <span class="brand-title">PrepAgent</span>
+                    <span class="brand-subtitle">AI Placement Intelligence</span>
+                </div>
+            </div>
+            <div class="nav-badges">
+                <span class="status-badge"><span class="dot"></span> Groq Cloud Powered</span>
+                <span class="model-badge">Meta Llama / GPT-OSS</span>
+            </div>
+        </header>
+
+        <!-- Main Hero & Input Card -->
+        <main class="main-content">
+            <section class="hero-section">
+                <h1 class="hero-title">Crack Your Dream Company with <span class="gradient-text">Autonomous AI Agents</span></h1>
+                <p class="hero-description">
+                    Our multi-agent pipeline researches recent online assessments, verifies recurring questions, designs tailored preparation roadmaps, and synthesizes 10-slide PowerPoint presentations.
+                </p>
+            </section>
+
+            <section class="input-card glass-panel">
+                <form id="agent-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="company-input">Target Company</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">&#127970;</span>
+                                <input type="text" id="company-input" placeholder="e.g. Adobe, Google, Microsoft, Amazon..." required autocomplete="off">
+                            </div>
+                            <div class="quick-tags">
+                                <span class="quick-tag" data-company="Adobe">Adobe</span>
+                                <span class="quick-tag" data-company="Google">Google</span>
+                                <span class="quick-tag" data-company="Microsoft">Microsoft</span>
+                                <span class="quick-tag" data-company="Amazon">Amazon</span>
+                                <span class="quick-tag" data-company="Atlassian">Atlassian</span>
+                                <span class="quick-tag" data-company="Goldman Sachs">Goldman Sachs</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="days-select">Preparation Window</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">&#9201;</span>
+                                <select id="days-select">
+                                    <option value="15">15 Days (Crash Course)</option>
+                                    <option value="30">30 Days (Fast Track)</option>
+                                    <option value="45">45 Days (Recommended)</option>
+                                    <option value="60" selected>60 Days (Comprehensive)</option>
+                                    <option value="90">90 Days (Mastery)</option>
+                                </select>
+                            </div>
+                            <div class="hint-text">All phases and slides will be scaled to your timeframe.</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-primary">
+                        <span class="btn-text">Launch Placement Agents</span>
+                        <span class="btn-icon">&#128640;</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Multi-Agent Live Progress Tracker -->
+            <section id="progress-section" class="progress-section glass-panel hidden">
+                <div class="progress-header">
+                    <div class="spinner"></div>
+                    <div>
+                        <h3 id="progress-status-title">Agents in Action...</h3>
+                        <p id="progress-status-desc" class="subtext">Coordinating multi-agent research across live sources.</p>
+                    </div>
+                </div>
+
+                <div class="agent-steps-grid">
+                    <div class="step-card active" id="step-1">
+                        <div class="step-icon">&#128269;</div>
+                        <div class="step-name">ResearchAgent</div>
+                        <div class="step-detail">OA patterns & questions</div>
+                    </div>
+                    <div class="step-card" id="step-2">
+                        <div class="step-icon">&#128737;</div>
+                        <div class="step-name">VerificationAgent</div>
+                        <div class="step-detail">Cross-check & confidence</div>
+                    </div>
+                    <div class="step-card" id="step-3">
+                        <div class="step-icon">&#128506;</div>
+                        <div class="step-name">RoadmapAgent</div>
+                        <div class="step-detail">Phase timeline plan</div>
+                    </div>
+                    <div class="step-card" id="step-4">
+                        <div class="step-icon">&#128202;</div>
+                        <div class="step-name">SlideContentAgent</div>
+                        <div class="step-detail">10-slide deck syllabus</div>
+                    </div>
+                    <div class="step-card" id="step-5">
+                        <div class="step-icon">&#127912;</div>
+                        <div class="step-name">PPT & ReportAgent</div>
+                        <div class="step-detail">PowerPoint file synthesis</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Dashboard -->
+            <section id="results-section" class="results-section glass-panel hidden">
+                <!-- Results Header -->
+                <div class="results-banner">
+                    <div class="results-title-area">
+                        <h2 id="result-company-name">Company Report</h2>
+                        <div class="results-meta">
+                            <span id="result-days-badge" class="meta-pill">60 Days</span>
+                            <span id="result-confidence-badge" class="meta-pill green">Confidence: 90%</span>
+                            <span id="result-difficulty-badge" class="meta-pill purple">Medium</span>
+                        </div>
+                    </div>
+                    <div class="results-actions">
+                        <a id="download-ppt-btn" href="#" class="btn-download" target="_blank">
+                            <span>&#128229; Download PowerPoint (.pptx)</span>
+                        </a>
+                        <a id="download-report-btn" href="#" class="btn-download-secondary" target="_blank">
+                            <span>&#128196; Download Text Report</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="tabs-bar">
+                    <button class="tab-btn active" data-tab="roadmap-tab">&#128506; Preparation Roadmap</button>
+                    <button class="tab-btn" data-tab="slides-tab">&#128444; Presentation Slides (<span id="slide-count">10</span>)</button>
+                    <button class="tab-btn" data-tab="intel-tab">&#127970; Company Intelligence</button>
+                    <button class="tab-btn" data-tab="report-tab">&#128195; Full Report</button>
+                </div>
+
+                <!-- Tab 1: Roadmap -->
+                <div id="roadmap-tab" class="tab-pane active">
+                    <div class="roadmap-timeline" id="roadmap-container">
+                        <!-- Populated by app.js -->
+                    </div>
+                </div>
+
+                <!-- Tab 2: Slides Preview -->
+                <div id="slides-tab" class="tab-pane">
+                    <div class="slides-grid" id="slides-container">
+                        <!-- Populated by app.js -->
+                    </div>
+                </div>
+
+                <!-- Tab 3: Company Intelligence -->
+                <div id="intel-tab" class="tab-pane">
+                    <div class="intel-grid" id="intel-container">
+                        <!-- Populated by app.js -->
+                    </div>
+                </div>
+
+                <!-- Tab 4: Full Report -->
+                <div id="report-tab" class="tab-pane">
+                    <div class="report-wrapper">
+                        <div class="report-actions">
+                            <button id="copy-report-btn" class="btn-sm">&#128203; Copy Report</button>
+                        </div>
+                        <pre id="report-text" class="report-code"></pre>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>AI Placement Agent &bull; Powered by Groq Ultra-Fast Cloud Inference & FastAPI</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

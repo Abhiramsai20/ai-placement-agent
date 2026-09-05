@@ -142,19 +142,24 @@ def generate_ppt(request: PPTRequest):
             .run(state)
         )
 
+        ppt_generated = False
         print(
             "\nGenerating PowerPoint..."
         )
 
-        subprocess.run(
-            [
-                "node",
-                "generate.js",
-                company
-            ],
-            cwd="ppt-generator",
-            check=True
-        )
+        try:
+            subprocess.run(
+                [
+                    "node",
+                    "generate.js",
+                    company
+                ],
+                cwd="ppt-generator",
+                check=True
+            )
+            ppt_generated = True
+        except Exception as ppt_err:
+            print(f"PowerPoint generation skipped or failed: {ppt_err}")
 
         return {
 
@@ -166,6 +171,11 @@ def generate_ppt(request: PPTRequest):
 
             "download_url":
                 f"/download-ppt/{company}",
+
+            "report_url":
+                f"/download-report/{company}",
+
+            "ppt_generated": ppt_generated,
 
             "slides_generated":
                 len(
@@ -197,8 +207,19 @@ def generate_ppt(request: PPTRequest):
                         "interview_experiences",
                         []
                     )
-                )
+                ),
+
+            "roadmap": state.get("roadmap", []),
+
+            "slide_content": state.get("slide_content", []),
+
+            "company_profile": state.get("company_profile", {}),
+
+            "verification": state.get("verification", {}),
+
+            "report": state.get("report", "")
         }
+
 
     except Exception as e:
 
