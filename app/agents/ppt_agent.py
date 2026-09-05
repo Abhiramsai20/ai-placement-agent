@@ -1,8 +1,12 @@
 import json
 import os
+from app.services.ppt_service import PowerPointGenerator
 
 
 class PPTAgent:
+
+    def __init__(self):
+        self.generator = PowerPointGenerator()
 
     def run(self, state):
 
@@ -47,4 +51,8 @@ class PPTAgent:
             f"Slides JSON saved: {file_path}"
         )
 
-        return state
+        # Generate the PowerPoint presentation natively with images
+        ppt_path = self.generator.generate(company, slides)
+        state["ppt_path"] = ppt_path
+
+        return state

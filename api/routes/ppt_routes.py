@@ -142,11 +142,10 @@ def generate_ppt(request: PPTRequest):
             .run(state)
         )
 
-        ppt_generated = False
-        print(
-            "\nGenerating PowerPoint..."
-        )
+        ppt_path = f"app/output/presentations/{company}_Placement_Report.pptx"
+        ppt_generated = os.path.exists(ppt_path)
 
+        # Optional Node.js generator fallback/sync if node is available
         try:
             subprocess.run(
                 [
@@ -158,8 +157,8 @@ def generate_ppt(request: PPTRequest):
                 check=True
             )
             ppt_generated = True
-        except Exception as ppt_err:
-            print(f"PowerPoint generation skipped or failed: {ppt_err}")
+        except Exception:
+            pass
 
         return {
 
