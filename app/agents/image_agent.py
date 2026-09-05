@@ -32,71 +32,77 @@ class ImageAgent:
             []
         )
 
-        os.makedirs(
-            "app/output/images",
-            exist_ok=True
-        )
-
-        image_data = []
-
-        for index, slide in enumerate(
-            slides
-        ):
-
-            title = slide.get(
-                "title",
-                ""
+        try:
+            os.makedirs(
+                "app/output/images",
+                exist_ok=True
             )
 
-            company = state[
-                "company"
-            ]
+            image_data = []
 
-            query = (
-                f"{company} "
-                f"{title}"
-            )
+            for index, slide in enumerate(
+                slides
+            ):
 
-            print(
-                f"Searching: {query}"
-            )
-
-            image_path = None
-            try:
-                results = (
-                    self.search_tool
-                    .image_search(
-                        query,
-                        max_results=1
-                    )
+                title = slide.get(
+                    "title",
+                    ""
                 )
 
-                if results and isinstance(results, list) and len(results) > 0:
-                    image_url = results[0].get("image", "")
-                    if image_url:
-                        target_path = f"app/output/images/slide_{index+1}.jpg"
-                        downloaded = self.downloader.download(image_url, target_path)
-                        if downloaded and os.path.exists(downloaded):
-                            image_path = downloaded
-            except Exception as e:
-                print(f"Image search skipped for {query}: {e}")
+                company = state.get(
+                    "company",
+                    ""
+                )
 
-            image_data.append(
+                query = (
+                    f"{company} "
+                    f"{title}"
+                )
+
+                print(
+                    f"Searching: {query}"
+                )
+
+                image_path = None
+                try:
+                    results = (
+                        self.search_tool
+                        .image_search(
+                            query,
+                            max_results=1
+                        )
+                    )
+
+                    if results and isinstance(results, list) and len(results) > 0:
+                        image_url = results[0].get("image", "")
+                        if image_url:
+                            target_path = f"app/output/images/slide_{index+1}.jpg"
+                            downloaded = self.downloader.download(image_url, target_path)
+                            if downloaded and os.path.exists(downloaded):
+                                image_path = downloaded
+                except Exception as e:
+                    print(f"Image search skipped for {query}: {e}")
+
+                image_data.append(
+                    {
+                        "slide": title,
+                        "query": query,
+                        "image": image_path
+                    }
+                )
+
+            state["image_data"] = image_data
+            print(f"Processed {len(image_data)} images")
+
+        except Exception as err:
+            print(f"Image Agent encountered an error: {err}. Continuing gracefully without images.")
+            state["image_data"] = [
                 {
-                    "slide": title,
-                    "query": query,
-                    "image": image_path
+                    "slide": s.get("title", ""),
+                    "query": f"{state.get('company', '')} {s.get('title', '')}",
+                    "image": None
                 }
-            )
-
-
-        state["image_data"] = (
-            image_data
-        )
-
-        print(
-            f"Downloaded "
-            f"{len(image_data)} images"
-        )
+                for s in slides
+            ]
 
         return state

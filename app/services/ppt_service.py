@@ -155,7 +155,7 @@ class PowerPointGenerator:
 
             for b_idx, item in enumerate(content_items):
                 p_bullet = tf_content.paragraphs[0] if b_idx == 0 else tf_content.add_paragraph()
-                p_bullet.text = f"?  {item}"
+                p_bullet.text = f"•  {item}"
                 p_bullet.font.size = Pt(14)
                 p_bullet.font.color.rgb = self.dark
                 p_bullet.space_before = Pt(8)
