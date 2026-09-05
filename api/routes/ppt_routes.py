@@ -1,3 +1,5 @@
+import os
+import subprocess
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
@@ -38,8 +40,6 @@ from app.agents.report_agent import (
 from app.agents.ppt_agent import (
     PPTAgent
 )
-
-import subprocess
 
 router = APIRouter()
 
