@@ -46,9 +46,17 @@ router = APIRouter()
 @router.post("/generate-ppt")
 def generate_ppt(request: PPTRequest):
 
-    company = request.company
+    company = (request.company or "").strip()
+    days = max(1, request.days or 60)
 
-    days = request.days
+    if not company:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "status": "failed",
+                "error": "Company name is required."
+            }
+        )
 
     state = {
         "company": company,

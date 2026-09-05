@@ -1,4 +1,10 @@
-from ddgs import DDGS
+try:
+    from ddgs import DDGS
+except ImportError:
+    try:
+        from duckduckgo_search import DDGS
+    except ImportError:
+        DDGS = None
 
 
 class WebSearchTool:
@@ -10,6 +16,9 @@ class WebSearchTool:
     ):
 
         results = []
+
+        if not DDGS:
+            return results
 
         try:
 
@@ -59,6 +68,9 @@ class WebSearchTool:
     ):
 
         images = []
+
+        if not DDGS:
+            return images
 
         try:
 
