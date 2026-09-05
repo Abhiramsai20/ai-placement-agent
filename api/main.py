@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
+
 from fastapi import FastAPI
 
 from api.routes.ppt_routes import (
