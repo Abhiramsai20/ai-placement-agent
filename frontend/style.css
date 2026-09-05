@@ -301,6 +301,38 @@ body {
     transform: none;
 }
 
+/* Error Card */
+.error-card {
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    border-left: 4px solid var(--accent-rose);
+    background: rgba(244, 63, 94, 0.1);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.error-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.error-icon {
+    font-size: 24px;
+}
+
+.error-body h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fda4af;
+    margin-bottom: 4px;
+}
+
+.error-body p {
+    font-size: 14px;
+    color: #fecdd3;
+    line-height: 1.5;
+}
+
 /* Multi-Agent Progress Tracker */
 .progress-section {
     padding: 32px;

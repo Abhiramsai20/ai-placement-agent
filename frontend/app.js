@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.getElementById("submit-btn");
     const quickTags = document.querySelectorAll(".quick-tag");
 
+    const errorSection = document.getElementById("error-section");
+    const errorTitle = document.getElementById("error-title");
+    const errorDesc = document.getElementById("error-desc");
+
     const progressSection = document.getElementById("progress-section");
     const progressStatusTitle = document.getElementById("progress-status-title");
     const progressStatusDesc = document.getElementById("progress-status-desc");
@@ -19,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("step-4"),
         document.getElementById("step-5")
     ];
+
 
     const resultsSection = document.getElementById("results-section");
     const resultCompanyName = document.getElementById("result-company-name");
@@ -75,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // UI Transition to Loading State
+        if (errorSection) errorSection.classList.add("hidden");
         submitBtn.disabled = true;
         submitBtn.querySelector(".btn-text").textContent = "Agents Running...";
         progressSection.classList.remove("hidden");
@@ -108,7 +114,14 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error("Agent Execution Error:", error);
             stopProgressSimulation(false);
-            alert(`Error running agents: ${error.message || "Failed to generate report"}`);
+            if (errorSection && errorTitle && errorDesc) {
+                errorTitle.textContent = "Agent Execution Error";
+                errorDesc.textContent = error.message || "Failed to generate report. Please try again or check server logs.";
+                errorSection.classList.remove("hidden");
+                errorSection.scrollIntoView({ behavior: "smooth" });
+            } else {
+                alert(`Error running agents: ${error.message || "Failed to generate report"}`);
+            }
         } finally {
             submitBtn.disabled = false;
             submitBtn.querySelector(".btn-text").textContent = "Launch Placement Agents";

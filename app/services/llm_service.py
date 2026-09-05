@@ -28,17 +28,29 @@ class LLMService:
             "openai/gpt-oss-20b"
         )
 
-    def generate(self, prompt):
-        response = self.client.chat.completions.create(
-            model=self.model,
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            temperature=0.2
-        )
+    def generate(self, prompt, max_tokens=4096):
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                temperature=0.2,
+                max_tokens=max_tokens
+            )
 
-        content = response.choices[0].message.content
-        return content if content is not None else ""
+            content = response.choices[0].message.content
+            return content if content is not None else ""
+        except Exception as e:
+            err_str = str(e)
+            if "401" in err_str or "invalid_api_key" in err_str:
+                raise ValueError(
+                    "Your GROQ_API_KEY is invalid or expired. "
+                    "Please get a free API key at https://console.groq.com/keys and update GROQ_API_KEY in your Render Environment settings or .env file."
+                ) from e
+            raise e
+
+
