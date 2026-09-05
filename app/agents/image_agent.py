@@ -61,6 +61,7 @@ class ImageAgent:
                 f"Searching: {query}"
             )
 
+            image_path = None
             try:
                 results = (
                     self.search_tool
@@ -70,7 +71,7 @@ class ImageAgent:
                     )
                 )
 
-                if results and isinstance(results, list):
+                if results and isinstance(results, list) and len(results) > 0:
                     image_url = results[0].get("image", "")
                     if image_url:
                         target_path = f"app/output/images/slide_{index+1}.jpg"
